@@ -1,0 +1,27 @@
+FROM public.ecr.aws/docker/library/node:lts-alpine3.16
+
+WORKDIR /app
+
+# install app dependencies
+COPY package.json ./
+
+RUN apk update && \
+    apk add --update git && \
+    apk add --update openssh
+
+RUN apk add --no-cache python3 py3-pip
+Run apk add --no-cache make build-base
+
+RUN npm install
+
+# add application files
+COPY . ./
+
+ARG env_arg
+
+ENV NODE_ENV=$env_arg
+
+EXPOSE 3000
+EXPOSE 4000
+
+CMD ["npm", "run", "start"]

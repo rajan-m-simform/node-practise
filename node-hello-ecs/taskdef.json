@@ -1,0 +1,39 @@
+{
+  "containerDefinitions": [
+    {
+      "name": "express",
+      "image": "453651376318.dkr.ecr.us-east-1.amazonaws.com/hello-world:latest",
+      "cpu": 0,
+      "portMappings": [
+        {
+          "name": "express-3000-tcp",
+          "containerPort": 3000,
+          "hostPort": 80,
+          "protocol": "tcp",
+          "appProtocol": "http"
+        }
+      ],
+      "essential": true,
+      "environment": [],
+      "environmentFiles": [
+        {
+          "value": "arn:aws:s3:::ecs-env-credentials/.env",
+          "type": "s3"
+        }
+      ],
+      "mountPoints": [],
+      "volumesFrom": []
+    }
+  ],
+  "family": "ecs-ec2-with-env",
+  "executionRoleArn": "arn:aws:iam::453651376318:role/ecsTaskExecutionRole",
+  "placementConstraints": [],
+  "requiresCompatibilities": ["EC2"],
+  "cpu": "1024",
+  "memory": "512",
+  "runtimePlatform": {
+    "cpuArchitecture": "X86_64",
+    "operatingSystemFamily": "LINUX"
+  },
+  "tags": []
+}
